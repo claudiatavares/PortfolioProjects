@@ -1,16 +1,19 @@
 
---Covid Deaths Project for data exploration
+-- Covid Deaths Project for data exploration
+
+-- Datasets
 
 SELECT *
 FROM PortfolioProject..CovidDeaths
 WHERE continent is not NULL
 ORDER BY 3,4
+-- WHERE query used because some locations were set as the continent, with NULL as the value for continent
 
 SELECT *
 FROM PortfolioProject..CovidVaccinations
 
 
--- Select Data that we are going to be using
+-- Select Data that I am going to be using
 
 SELECT location, date, total_cases, new_cases, total_deaths, population
 FROM PortfolioProject..CovidDeaths
@@ -59,7 +62,7 @@ GROUP BY location
 ORDER BY TotalDeathCount DESC
 
 
--- LET'S BREAK THINGS DOWN BY CONTINENT
+-- Breaking things down by continent
 -- Showing the continents with the highest death count per population
 
 SELECT continent, MAX(cast(total_deaths as int)) AS TotalDeathCount
@@ -92,7 +95,7 @@ WHERE continent is not NULL
 ORDER BY 1,2
 
 
--- Join Covid and Vaccinations tables together
+-- Joining Covid and Vaccinations tables together
 
 SELECT *
 FROM PortfolioProject..CovidDeaths AS dea
@@ -124,7 +127,7 @@ Join PortfolioProject..CovidVaccinations AS vac
 WHERE dea.continent is not NULL
 ORDER BY 2,3
 
--- USE CTE
+-- Using CTE
 
 WITH PopvsVac (continent, location, date, population, new_vaccinations, RollingPeopleVaccinated)
 AS
@@ -141,7 +144,7 @@ WHERE dea.continent is not NULL
 Select *, (RollingPeopleVaccinated/population)*100
 FROM PopvsVac
 
--- USE TEMP TABLE
+-- Using temp table
 
 DROP TABLE if exists #PercentPopulationVaccinated
 CREATE TABLE #PercentPopulationVaccinated
