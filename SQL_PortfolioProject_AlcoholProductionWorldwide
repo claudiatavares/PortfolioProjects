@@ -1,0 +1,112 @@
+-- ALCOHOL PRODUCTION PROJECT
+
+-- Number of countries considered
+
+SELECT COUNT(DISTINCT Country) AS num_of_countries
+FROM AlcoholProduction_2014_2019.dbo.AlcoholProductionWorldwide
+
+/*
+This analysis was composed of 151 countries across continents, apart from Antarctica (considering a 7-continent classification: Asia, Africa, North America, South America, Antarctica, Europe, and Oceania).
+*/
+
+/*
+Six countries are transcontinental, which required their re-classification.
+Europe, Asia - Azerbaijan - re-classified as Asia
+Africa, Asia - Egypt - re-classified as Africa
+Europe, Asia - Georgia - re-classified as Asia
+Europe, Asia - Kazakhstan - re-classified as Asia
+Europe, Asia - Russia - re-classified as Europe
+Europe, Asia - Turkey - re-classified as Europe
+*/
+
+UPDATE AlcoholProduction_2014_2019.dbo.AlcoholProductionWorldwide
+SET Continent = 'Asia'
+WHERE Country = 'Azerbaijan'
+
+UPDATE AlcoholProduction_2014_2019.dbo.AlcoholProductionWorldwide
+SET Continent = 'Africa'
+WHERE Country = 'Egypt'
+
+UPDATE AlcoholProduction_2014_2019.dbo.AlcoholProductionWorldwide
+SET Continent = 'Asia'
+WHERE Country = 'Georgia'
+
+UPDATE AlcoholProduction_2014_2019.dbo.AlcoholProductionWorldwide
+SET Continent = 'Asia'
+WHERE Country = 'Kazakhstan'
+
+UPDATE AlcoholProduction_2014_2019.dbo.AlcoholProductionWorldwide
+SET Continent = 'Europe'
+WHERE Country = 'Russia'
+
+UPDATE AlcoholProduction_2014_2019.dbo.AlcoholProductionWorldwide
+SET Continent = 'Europe'
+WHERE Country = 'Turkey'
+
+
+-- Yearly production by country
+
+-- 2014
+SELECT Country, Year, Thousand_Metric_Tons AS TMT_total
+FROM AlcoholProduction_2014_2019.dbo.AlcoholProductionWorldwide
+WHERE Year = 2014
+ORDER BY TMT_total DESC
+
+-- 2015
+SELECT Country, Year, Thousand_Metric_Tons AS TMT_total
+FROM AlcoholProduction_2014_2019.dbo.AlcoholProductionWorldwide
+WHERE Year = 2015
+ORDER BY TMT_total DESC
+
+-- 2016
+SELECT Country, Year, Thousand_Metric_Tons AS TMT_total
+FROM AlcoholProduction_2014_2019.dbo.AlcoholProductionWorldwide
+WHERE Year = 2016
+ORDER BY TMT_total DESC
+
+-- 2017
+SELECT Country, Year, Thousand_Metric_Tons AS TMT_total
+FROM AlcoholProduction_2014_2019.dbo.AlcoholProductionWorldwide
+WHERE Year = 2017
+ORDER BY TMT_total DESC
+
+-- 2018
+SELECT Country, Year, Thousand_Metric_Tons AS TMT_total
+FROM AlcoholProduction_2014_2019.dbo.AlcoholProductionWorldwide
+WHERE Year = 2018
+ORDER BY TMT_total DESC
+
+-- 2019
+SELECT Country, Year, Thousand_Metric_Tons AS TMT_total
+FROM AlcoholProduction_2014_2019.dbo.AlcoholProductionWorldwide
+WHERE Year = 2019
+ORDER BY TMT_total DESC
+
+/*
+China, USA, and Brazil were consistently the biggest producers of alcoholic beverages between 2014 and 2019. This meets the insights taken from the total production per country.
+Germany was the biggest producer in Europe between 2014 and 2019.
+*/
+
+
+-- Top 3 continents
+
+SELECT TOP 3 Continent, SUM(Thousand_Metric_Tons) AS TMT_total
+FROM AlcoholProduction_2014_2019.dbo.AlcoholProductionWorldwide
+GROUP BY Continent
+ORDER BY TMT_total DESC
+
+/*
+Asia was the biggest producer of alcoholic beverages between 2014 and 2019, followed by Europe and North America, respectively.
+*/
+
+
+-- Top 10 countries
+
+SELECT TOP 10 Country, SUM(Thousand_Metric_Tons) AS TMT_total
+FROM AlcoholProduction_2014_2019.dbo.AlcoholProductionWorldwide
+GROUP BY Country
+ORDER BY TMT_total DESC
+
+/*
+China was the biggest producer of alcoholic beverages between the 2014-2019 period. In descent order, the top 10 list is completed by United States, Brazil, Mexico, Germany, Russia, France, Spain, Italy, and India.
+*/
