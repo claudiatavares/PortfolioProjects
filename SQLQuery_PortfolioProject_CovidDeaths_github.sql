@@ -31,9 +31,9 @@ ORDER BY 1,2
 
 SELECT location, date, total_cases, total_deaths, (total_deaths/total_cases)*100 AS DeathPercentage
 FROM PortfolioProject..CovidDeaths
-WHERE location like '%states%'
+--WHERE location like '%kingdom%'
 and continent is not NULL
-ORDER BY 1,2
+ORDER BY 5
 
 
 -- Looking at Total Cases vs Population
@@ -41,8 +41,8 @@ ORDER BY 1,2
 
 SELECT location, date, population, total_cases, (total_cases/population)*100 AS PercentPopulationInfected
 FROM PortfolioProject..CovidDeaths
---WHERE location like '%states%'
-ORDER BY 1,2
+--WHERE location like '%kingdom%'
+ORDER BY 5
 
 
 -- Looking at countries with highest infection rates compared to population
